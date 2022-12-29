@@ -60,13 +60,62 @@ public class Main {
         }).start();
 */
 
-        Timer timer = new Timer();
+        //проработка асинхронных потоков
+        //        System.out.println("Запуск программы.");
+//        Thread test_1 = new Thread(() -> {
+//            int count = 0;
+//            while (true) {
+//                try {
+//                    sleep(1000L);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                count ++;
+//                System.out.println(count);
+//            }
+//        });
+//
+//        Thread test_2 = new Thread(() -> {
+//            int count_2 = 0;
+//            while (true) {
+//                try {
+//                    sleep(5000L);
+//                    count_2 += 5;
+//                    System.out.println("прошло: " + count_2);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//
+//        Thread test_3 = new Thread(() -> {
+//            int count_3 = 0;
+//            while (true) {
+//                try {
+//                    sleep(7000L);
+//                    count_3 += 7;
+//                    System.out.println("прошло: " + count_3);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//
+//        test_1.start();
+//        test_2.start();
+//        test_3.start();
+
+        Timer timer = new Timer(0, 1);
         new Thread(timer).start();
 
         new Thread(() -> {
             while (true) {
-                if (timer.time % 5 == 0 && timer.time != 0) {
-                    System.out.println("пять секунд прошло, но такой же код 2 минуты назад работать не хотел, охуенно");
+                if (timer.time % 5 == 0 && timer.time != 0 && timer.time % 7 == 0) {
+                    System.out.println("5 & 7 seconds passed.");
+                } else if (timer.time % 5 == 0 && timer.time != 0) {
+                    System.out.println("5 seconds passed.");
+                } else if (timer.time % 7 == 0 && timer.time != 0) {
+                    System.out.println("7 seconds passed.");
                 }
                 try {
                     sleep(1000L);
@@ -75,5 +124,7 @@ public class Main {
                 }
             }
         }).start();
+
+
     }
 }
